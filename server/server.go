@@ -68,7 +68,6 @@ func (c *ChatServer) Logout(username string, reply *[]string) error {
 	}
 	log.Printf("%s has left the chat", username)
 	return nil
-<<<<<<< HEAD
 
 }
 func (c *ChatServer) Shutdown(nothing Nothing, reply *Nothing) error {
@@ -82,9 +81,6 @@ func (c *ChatServer) Shutdown(nothing Nothing, reply *Nothing) error {
 	c.shutdown <- true
 
 	return nil
-=======
-
->>>>>>> origin/master
 }
 func parseFlags(cs *ChatServer) {
 	flag.StringVar(&cs.port, "port", "3410", "port for chat server to listen on")
