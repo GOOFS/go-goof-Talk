@@ -23,9 +23,13 @@ type ChatServer struct {
 	shutdown     chan bool
 }
 
-
 func (c *ChatServer) RegisterGoofs(username string, reply *string) error {
-	*reply = "Welcome to GOOF TALK\n"
+	*reply = "  _____    ____     ____    ______         _______           _   _      \n"
+	*reply += "  / ____|  / __ \\   / __ \\  |  ____|       |__   __|         | | | |     \n"
+	*reply += " | |  __  | |  | | | |  | | | |__             | |      __ _  | | | | __  \n"
+	*reply += " | | |_ | | |  | | | |  | | |  __|            | |     / _` | | | | |/ /  \n"
+	*reply += " | |__| | | |__| | | |__| | | |               | |    | (_| | | | |   <   \n"
+	*reply += "  \\_____|  \\____/   \\____/  |_|               |_|     \\__,_| |_| |_|\\_\\  v1.0\n"
 	*reply += "List of GOOFS online:\n"
 
 	c.users = append(c.users, username)
@@ -44,7 +48,6 @@ func (c *ChatServer) RegisterGoofs(username string, reply *string) error {
 	return nil
 }
 
-
 func (c *ChatServer) ListGoofs(none Nothing, reply *[]string) error {
 	*reply = append(*reply, "Current online Goofs:")
 
@@ -56,8 +59,17 @@ func (c *ChatServer) ListGoofs(none Nothing, reply *[]string) error {
 
 	return nil
 }
+func (c *ChatServer) Logout(username string, reply *[]string) error {
+	for i, val := range c.users {
+		if val == username {
+			c.users = append(c.users[:i], c.users[i+1:]...) //deletes the user from the array(slice)
+			break
+		}
+	}
+	log.Printf("%s has left the chat", username)
+	return nil
 
-
+}
 func parseFlags(cs *ChatServer) {
 	flag.StringVar(&cs.port, "port", "3410", "port for chat server to listen on")
 	flag.Parse()
