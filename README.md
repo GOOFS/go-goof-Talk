@@ -36,10 +36,16 @@ oiwruowieroiwqru
 Invalid function, try 'help' to list all available functions
 help
 Welcome to GOOFtalk help:
+<<<<<<< HEAD
 List of functions,
 1. listGoofs
 2. logout
 3. shutdown
+=======
+List of funcitons,
+1. listGoofs
+2. logout
+>>>>>>> origin/master
 logout
 2016/02/23 22:29:26 Logged out Succesfully
 ```
