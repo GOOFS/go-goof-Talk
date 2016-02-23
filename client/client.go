@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"errors"
 	"flag"
+	"fmt"
 	"log"
 	"net"
 	"net/rpc"
@@ -27,6 +28,12 @@ type ChatClient struct {
 	Client   *rpc.Client
 }
 
+// Globals/Constants
+var (
+	DEFAULT_PORT = 3410
+	DEFAULT_HOST = "localhost"
+)
+
 func (c *ChatClient) getClientConnection() *rpc.Client {
 	var err error
 
@@ -49,10 +56,9 @@ func (c *ChatClient) RegisterGoofs() {
 	if err != nil {
 		log.Printf("Error registering user: %q", err)
 	} else {
-		log.Printf("\n %s", reply)
+		fmt.Printf("\n %s", reply)
 	}
 }
-
 
 // List lists all the users in the chat currently
 func (c *ChatClient) ListGoofs() {
@@ -60,24 +66,48 @@ func (c *ChatClient) ListGoofs() {
 	var none Nothing
 	c.Client = c.getClientConnection()
 
-	err := c.Client.Call("ChatServer.List", none, &reply)
+	err := c.Client.Call("ChatServer.ListGoofs", none, &reply)
 	if err != nil {
 		log.Printf("Error listing users: %q\n", err)
 	}
 
 	for i := range reply {
-		log.Println(reply[i])
+		fmt.Println(reply[i])
 	}
 }
 
+// logout a Goof
+func (c *ChatClient) Logout() {
+	var reply []string
+	err := c.Client.Call("ChatServer.Logout", c.Username, &reply)
+	if err != nil {
+		log.Printf("Error logging out: %q\n", err)
+	} else {
+		log.Println("Logged out Succesfully")
+		os.Exit(0)
+	}
+
+}
+
+// Shutdown logs out all registered Goofs and Stops the server
+func (c *ChatClient) Shutdown() {
+	var request Nothing = false
+	var reply Nothing
+      
+
+	c.Client = c.getClientConnection()
+
+	err := c.Client.Call("ChatServer.Shutdown", request, &reply)
+	if err != nil {
+		log.Printf("Error shutting down server: %q", err)
+	}else {
+		log.Println("Goof Talk Server Shutdown Successful")
+		os.Exit(0)
+}
+}
 
 
-// Globals/Constants
-var (
-	DEFAULT_PORT = 3410
-	DEFAULT_HOST = "localhost"
-)
-
+// Parse the command list arguments
 func createClientFromFlags() (*ChatClient, error) {
 	var c *ChatClient = &ChatClient{}
 	var host string
@@ -120,9 +150,18 @@ func mainLoop(c *ChatClient) {
 		line = strings.TrimSpace(line)
 		if strings.HasPrefix(line, "listGoofs") {
 			c.ListGoofs()
-		
+		} else if strings.HasPrefix(line, "logout") {
+			c.Logout()
+                } else if strings.HasPrefix(line,"shutdown") {
+                        c.Shutdown()
+		} else if strings.HasPrefix(line, "help") {
+			fmt.Println("Welcome to GOOFtalk help:")
+			fmt.Println("List of funcitons, \n1. listGoofs\n2. logout\n3. shutdown")
+		} else {
+			fmt.Println("Invalid function, try 'help' to list all available functions")
+		}
+
 	}
-}
 }
 
 func main() {
@@ -138,6 +177,5 @@ func main() {
 	client.RegisterGoofs()
 
 	// Listen for messages
-
 	mainLoop(client)
 }
