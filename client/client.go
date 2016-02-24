@@ -53,8 +53,12 @@ func (c *ChatClient) RegisterGoofs() {
 	c.Client = c.getClientConnection()
 
 	err := c.Client.Call("ChatServer.RegisterGoofs", c.Username, &reply)
+
 	if err != nil {
-		log.Printf("Error registering user: %q", err)
+		fmt.Printf("Error registering user: %q\n", err)
+		fmt.Println("Enter new GOOF name:")
+		fmt.Scanln(&c.Username)
+		c.RegisterGoofs()
 	} else {
 		fmt.Printf("\n %s", reply)
 	}
@@ -93,19 +97,17 @@ func (c *ChatClient) Logout() {
 func (c *ChatClient) Shutdown() {
 	var request Nothing = false
 	var reply Nothing
-      
 
 	c.Client = c.getClientConnection()
 
 	err := c.Client.Call("ChatServer.Shutdown", request, &reply)
 	if err != nil {
 		log.Printf("Error shutting down server: %q", err)
-	}else {
+	} else {
 		log.Println("Goof Talk Server Shutdown Successful")
 		os.Exit(0)
+	}
 }
-}
-
 
 // Parse the command list arguments
 func createClientFromFlags() (*ChatClient, error) {
@@ -116,7 +118,10 @@ func createClientFromFlags() (*ChatClient, error) {
 	flag.StringVar(&host, "host", "localhost", "The host you want to connect to")
 
 	flag.Parse()
-
+	if c.Username == "Goof" {
+		fmt.Println("Enter your Goof ID: ")
+		fmt.Scanln(&c.Username)
+	}
 	if !flag.Parsed() {
 		return c, errors.New("Unable to create user from commandline flags. Please try again")
 	}
@@ -152,8 +157,8 @@ func mainLoop(c *ChatClient) {
 			c.ListGoofs()
 		} else if strings.HasPrefix(line, "logout") {
 			c.Logout()
-                } else if strings.HasPrefix(line,"shutdown") {
-                        c.Shutdown()
+		} else if strings.HasPrefix(line, "shutdown") {
+			c.Shutdown()
 		} else if strings.HasPrefix(line, "help") {
 			fmt.Println("Welcome to GOOFtalk help:")
 			fmt.Println("List of funcitons, \n1. listGoofs\n2. logout\n3. shutdown")

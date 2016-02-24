@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"log"
 	"net"
@@ -31,7 +32,12 @@ func (c *ChatServer) RegisterGoofs(username string, reply *string) error {
 	*reply += " | |__| | | |__| | | |__| | | |               | |    | (_| | | | |   <   \n"
 	*reply += "  \\_____|  \\____/   \\____/  |_|               |_|     \\__,_| |_| |_|\\_\\  v1.0\n"
 	*reply += "List of GOOFS online:\n"
-
+	for _, val := range c.users {
+		if val == username {
+			err := errors.New("Username already taken.")
+			return err
+		}
+	}
 	c.users = append(c.users, username)
 	c.messageQueue[username] = nil
 
@@ -71,11 +77,10 @@ func (c *ChatServer) Logout(username string, reply *[]string) error {
 
 }
 func (c *ChatServer) Shutdown(nothing Nothing, reply *Nothing) error {
-          var rep []string 
-          for _,val := range c.users {
-
-          c.Logout(val, &rep)
-        }
+	var rep []string
+	for _, val := range c.users {
+		c.Logout(val, &rep)
+	}
 	log.Println("Server shutdown...Goodbye.")
 	*reply = false
 	c.shutdown <- true
