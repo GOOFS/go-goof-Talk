@@ -93,21 +93,7 @@ func (c *ChatClient) Logout() {
 
 }
 
-// Shutdown logs out all registered Goofs and Stops the server
-func (c *ChatClient) Shutdown() {
-	var request Nothing = false
-	var reply Nothing
 
-	c.Client = c.getClientConnection()
-
-	err := c.Client.Call("ChatServer.Shutdown", request, &reply)
-	if err != nil {
-		log.Printf("Error shutting down server: %q", err)
-	} else {
-		log.Println("Goof Talk Server Shutdown Successful")
-		os.Exit(0)
-	}
-}
 
 // Parse the command list arguments
 func createClientFromFlags() (*ChatClient, error) {
@@ -157,11 +143,9 @@ func mainLoop(c *ChatClient) {
 			c.ListGoofs()
 		} else if strings.HasPrefix(line, "logout") {
 			c.Logout()
-		} else if strings.HasPrefix(line, "shutdown") {
-			c.Shutdown()
-		} else if strings.HasPrefix(line, "help") {
+		}  else if strings.HasPrefix(line, "help") {
 			fmt.Println("Welcome to GOOFtalk help:")
-			fmt.Println("List of funcitons, \n1. listGoofs\n2. logout\n3. shutdown")
+			fmt.Println("List of funcitons, \n1. listGoofs\n2. logout\n")
 		} else {
 			fmt.Println("Invalid function, try 'help' to list all available functions")
 		}
