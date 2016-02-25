@@ -39,7 +39,6 @@ Welcome to GOOFtalk help:
 List of functions,
 1. listGoofs
 2. logout
-3. shutdown
 logout
 2016/02/23 22:29:26 Logged out Succesfully
 ```
