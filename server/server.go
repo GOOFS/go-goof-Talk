@@ -66,25 +66,24 @@ func (c *ChatServer) ListGoofs(none Nothing, reply *[]string) error {
 	return nil
 }
 func (c *ChatServer) Logout(username string, reply *[]string) error {
-	for i, val := range c.users {
+	var none Nothing	
+		for i, val := range c.users {
 		if val == username {
 			c.users = append(c.users[:i], c.users[i+1:]...) //deletes the user from the array(slice)
 			break
 		}
 	}
 	log.Printf("%s has left the chat", username)
+        if len(c.users) == 0{
+         c.Shutdown(none, &none)
+       }
 	return nil
 
 }
 func (c *ChatServer) Shutdown(nothing Nothing, reply *Nothing) error {
-	var rep []string
-	for _, val := range c.users {
-		c.Logout(val, &rep)
-	}
-	log.Println("Server shutdown...Goodbye.")
+	log.Println("Everybody left the chat. Server is Shutting down...")
 	*reply = false
 	c.shutdown <- true
-
 	return nil
 }
 func parseFlags(cs *ChatServer) {
