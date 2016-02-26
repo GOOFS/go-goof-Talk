@@ -1,18 +1,73 @@
 package main
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
-// mocks a user logout function
-func TestLogout(t *testing.T) {
-	c := ChatServer{port: "3410",
-		users: []string{"testman", "demo"},
+// mocks the logout function with sample data
+var c = ChatServer{port: "3410"}
+var none Nothing
+
+//unit test case of ListGoofs with valid data
+func TestListGoofs_1(t *testing.T) {
+	var reply []string
+	c.users = []string{"testman", "goofdemo"}
+	err := c.ListGoofs(none, &reply)
+	if err != nil {
+		t.Error("Error listing users:", err)
+	} else {
+		for i := range reply {
+			fmt.Println(reply[i])
+		}
 	}
-	var none Nothing
-	var demouser = "testman"
+}
+
+//unit test case of ListGoofs with invalid data
+func TestListGoofs_2(t *testing.T) {
+	var reply []string
+	c.users = []string{}
+	err := c.ListGoofs(none, &reply)
+	if err != nil {
+		t.Error("Error listing users:", err)
+	} else {
+		for i := range reply {
+			fmt.Println(reply[i])
+		}
+	}
+}
+
+/*//unit test case of Logout with valid data
+func TestLogout_1(t *testing.T) {
+	c.users = []string{"testman", "goofdemo"}
+	var demouser = "goofdemo"
 	err := c.Logout(demouser, &none)
 	if err != nil {
-		t.Error("Could not log in correctly. ")
+		t.Error("Could not log out correctly. ")
 	} else {
 		t.Log("Logout successfull")
 	}
 }
+
+//unit test case of Logout with invalid data
+func TestLogout_2(t *testing.T) {
+	c.users = []string{"testman", "goofdemo"}
+	var demouser = "Joseph"
+	err := c.Logout(demouser, &none)
+	if err != nil {
+		t.Error("Could not log out correctly. ")
+	} else {
+		t.Log("Logout successfull")
+	}
+}
+
+//unit test case of Shutdown with valid shutdown
+func TestShutdown_1(t *testing.T) {
+	c.users = []string{}
+	err := c.Shutdown(none, &none)
+	if err != nil {
+		t.Error("Users are logged in. Can't shutdown")
+	} else {
+		t.Log("Shutdown successfull")
+	}
+}*/

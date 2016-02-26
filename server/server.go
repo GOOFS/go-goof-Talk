@@ -56,7 +56,10 @@ func (c *ChatServer) RegisterGoofs(username string, reply *string) error {
 
 func (c *ChatServer) ListGoofs(none Nothing, reply *[]string) error {
 	*reply = append(*reply, "Current online Goofs:")
-
+	if len(c.users) == 0 {
+		err := errors.New("No current users")
+		return err
+	}
 	for i := range c.users {
 		*reply = append(*reply, c.users[i])
 	}
@@ -65,20 +68,21 @@ func (c *ChatServer) ListGoofs(none Nothing, reply *[]string) error {
 
 	return nil
 }
-func (c *ChatServer) Logout(username string, reply *[]string) error {
-	var none Nothing	
-		for i, val := range c.users {
+func (c *ChatServer) Logout(username string, reply *Nothing) error {
+	var none Nothing
+	for i, val := range c.users {
 		if val == username {
 			c.users = append(c.users[:i], c.users[i+1:]...) //deletes the user from the array(slice)
-			break
+			log.Printf("%s has left the chat", username)
+			return nil
 		}
 	}
-	log.Printf("%s has left the chat", username)
-        if len(c.users) == 0{
-         c.Shutdown(none, &none)
-       }
-	return nil
 
+	if len(c.users) == 0 {
+		c.Shutdown(none, &none)
+	}
+	err := errors.New("Unable to logout")
+	return err
 }
 func (c *ChatServer) Shutdown(nothing Nothing, reply *Nothing) error {
 	log.Println("Everybody left the chat. Server is Shutting down...")

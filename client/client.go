@@ -82,7 +82,7 @@ func (c *ChatClient) ListGoofs() {
 
 // logout a Goof
 func (c *ChatClient) Logout() {
-	var reply []string
+	var reply Nothing
 	err := c.Client.Call("ChatServer.Logout", c.Username, &reply)
 	if err != nil {
 		log.Printf("Error logging out: %q\n", err)
@@ -92,8 +92,6 @@ func (c *ChatClient) Logout() {
 	}
 
 }
-
-
 
 // Parse the command list arguments
 func createClientFromFlags() (*ChatClient, error) {
@@ -143,7 +141,7 @@ func mainLoop(c *ChatClient) {
 			c.ListGoofs()
 		} else if strings.HasPrefix(line, "logout") {
 			c.Logout()
-		}  else if strings.HasPrefix(line, "help") {
+		} else if strings.HasPrefix(line, "help") {
 			fmt.Println("Welcome to GOOFtalk help:")
 			fmt.Println("List of funcitons, \n1. listGoofs\n2. logout\n")
 		} else {
