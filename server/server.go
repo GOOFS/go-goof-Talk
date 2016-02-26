@@ -7,6 +7,7 @@ import (
 	"net"
 	"net/http"
 	"net/rpc"
+	"strings"
 )
 
 type Nothing bool
@@ -32,6 +33,11 @@ func (c *ChatServer) RegisterGoofs(username string, reply *string) error {
 	*reply += " | |__| | | |__| | | |__| | | |               | |    | (_| | | | |   <   \n"
 	*reply += "  \\_____|  \\____/   \\____/  |_|               |_|     \\__,_| |_| |_|\\_\\  v1.0\n"
 	*reply += "List of GOOFS online:\n"
+	if len(strings.Trim(username, " ")) == 0 {
+		err := errors.New("Username cannot be blank.")
+		return err
+	}
+
 	for _, val := range c.users {
 		if val == username {
 			err := errors.New("Username already taken.")
@@ -39,7 +45,7 @@ func (c *ChatServer) RegisterGoofs(username string, reply *string) error {
 		}
 	}
 	c.users = append(c.users, username)
-	c.messageQueue[username] = nil
+	//	c.messageQueue[username] = nil
 
 	for _, value := range c.users {
 		*reply += value + "\n"
@@ -70,19 +76,23 @@ func (c *ChatServer) ListGoofs(none Nothing, reply *[]string) error {
 }
 func (c *ChatServer) Logout(username string, reply *Nothing) error {
 	var none Nothing
-	for i, val := range c.users {
+	var i int
+	var val string
+	for i, val = range c.users {
 		if val == username {
 			c.users = append(c.users[:i], c.users[i+1:]...) //deletes the user from the array(slice)
 			log.Printf("%s has left the chat", username)
-			return nil
+			break
 		}
 	}
-
+	if i == len(c.users) && val != username {
+		err := errors.New("Unable to logout")
+		return err
+	}
 	if len(c.users) == 0 {
 		c.Shutdown(none, &none)
 	}
-	err := errors.New("Unable to logout")
-	return err
+	return nil
 }
 func (c *ChatServer) Shutdown(nothing Nothing, reply *Nothing) error {
 	log.Println("Everybody left the chat. Server is Shutting down...")
