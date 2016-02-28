@@ -1,0 +1,329 @@
+<html>
+<head>
+	<title>GoofServer Package Documentation -  GoofTalk by GOOFS</title>
+	<link rel="stylesheet" href="style.css" media="screen" charset="utf-8">
+
+	<script type='text/javascript'>
+	document.ANALYSIS_DATA = ;
+	document.CALLGRAPH = ;
+	</script>
+</head>
+<body>
+	<!--
+		Copyright 2009 The Go Authors. All rights reserved.
+		Use of this source code is governed by a BSD-style
+		license that can be found in the LICENSE file.
+	-->
+	<!--
+		Note: Static (i.e., not template-generated) href and id
+		attributes start with "pkg-" to make it impossible for
+		them to conflict with generated attributes (some of which
+		correspond to Go identifiers).
+	-->
+
+		<script type='text/javascript'>
+		document.ANALYSIS_DATA = ;
+		document.CALLGRAPH = ;
+		</script>
+
+
+
+			<div id="short-nav">
+				<dl>
+				<dd><code>import "goofserver"</code></dd>
+				</dl>
+				<dl>
+				<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
+				<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
+
+
+				</dl>
+			</div>
+			<!-- The package's Name is printed as title by the top-level template -->
+			<div id="pkg-overview" class="toggleVisible">
+				<div class="collapsed">
+					<h2 class="toggleButton" title="Click to show Overview section">Overview</h2>
+				</div>
+				<div class="expanded">
+					<h2 class="toggleButton" title="Click to hide Overview section">Overview</h2>
+					<p>
+	Package goofserver defines methods which will manage
+	connections and all the messages sent by them.
+	</p>
+
+				</div>
+			</div>
+
+
+			<div id="pkg-index" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Index section">Index</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Index section">Index</h2>
+
+			<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+				<div id="manual-nav">
+				<dl>
+
+
+
+
+					<dd><a href="#ParseFlags">func ParseFlags(cs *ChatServer)</a></dd>
+
+
+					<dd><a href="#RunServer">func RunServer(cs *ChatServer)</a></dd>
+
+
+
+					<dd><a href="#ChatServer">type ChatServer</a></dd>
+
+
+						<dd>&nbsp; &nbsp; <a href="#StartServer">func StartServer() *ChatServer</a></dd>
+
+
+
+						<dd>&nbsp; &nbsp; <a href="#ChatServer.CheckMessages">func (c *ChatServer) CheckMessages(username string, reply *[]string) error</a></dd>
+
+
+						<dd>&nbsp; &nbsp; <a href="#ChatServer.ListGoofs">func (c *ChatServer) ListGoofs(none Nothing, reply *[]string) error</a></dd>
+
+
+						<dd>&nbsp; &nbsp; <a href="#ChatServer.Logout">func (c *ChatServer) Logout(username string, reply *Nothing) error</a></dd>
+
+
+						<dd>&nbsp; &nbsp; <a href="#ChatServer.RegisterGoofs">func (c *ChatServer) RegisterGoofs(username string, reply *string) error</a></dd>
+
+
+						<dd>&nbsp; &nbsp; <a href="#ChatServer.Shout">func (c *ChatServer) Shout(msg Message, reply *Nothing) error</a></dd>
+
+
+						<dd>&nbsp; &nbsp; <a href="#ChatServer.Shutdown">func (c *ChatServer) Shutdown(nothing Nothing, reply *Nothing) error</a></dd>
+
+
+						<dd>&nbsp; &nbsp; <a href="#ChatServer.Whisper">func (c *ChatServer) Whisper(msg Message, reply *Nothing) error</a></dd>
+
+
+
+					<dd><a href="#Message">type Message</a></dd>
+
+
+
+
+					<dd><a href="#Nothing">type Nothing</a></dd>
+
+
+
+
+				</dl>
+				</div><!-- #manual-nav -->
+
+
+
+
+				<h4>Package files</h4>
+				<p>
+				<span style="font-size:90%">
+
+					<a href="/src/goofserver/goofserver.go">goofserver.go</a>
+
+				</span>
+				</p>
+
+			</div><!-- .expanded -->
+			</div><!-- #pkg-index -->
+
+			<div id="pkg-callgraph" class="toggle" style="display: none">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Internal Call Graph section">Internal call graph ▹</h2>
+			</div> <!-- .expanded -->
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Internal Call Graph section">Internal call graph ▾</h2>
+				<p>
+				  In the call graph viewer below, each node
+				  is a function belonging to this package
+				  and its children are the functions it
+				  calls&mdash;perhaps dynamically.
+				</p>
+				<p>
+				  The root nodes are the entry points of the
+				  package: functions that may be called from
+				  outside the package.
+				  There may be non-exported or anonymous
+				  functions among them if they are called
+				  dynamically from another package.
+				</p>
+				<p>
+				  Click a node to visit that function's source code.
+				  From there you can visit its callers by
+				  clicking its declaring <code>func</code>
+				  token.
+				</p>
+				<p>
+				  Functions may be omitted if they were
+				  determined to be unreachable in the
+				  particular programs or tests that were
+				  analyzed.
+				</p>
+				<!-- Zero means show all package entry points. -->
+				<ul style="margin-left: 0.5in" id="callgraph-0" class="treeview"></ul>
+			</div>
+			</div> <!-- #pkg-callgraph -->
+
+
+
+
+
+
+				<h2 id="ParseFlags">func <a href="/src/target/goofserver.go?s=4078:4109#L143">ParseFlags</a></h2>
+				<pre>func ParseFlags(cs *<a href="#ChatServer">ChatServer</a>)</pre>
+				<p>
+	ParseFlags function parses the command line arguments
+	</p>
+
+
+
+
+
+
+
+				<h2 id="RunServer">func <a href="/src/target/goofserver.go?s=4305:4335#L150">RunServer</a></h2>
+				<pre>func RunServer(cs *<a href="#ChatServer">ChatServer</a>)</pre>
+				<p>
+	RunServer function starts listening to the given or the default port
+	</p>
+
+
+
+
+
+
+
+
+				<h2 id="ChatServer">type <a href="/src/target/goofserver.go?s=425:553#L16">ChatServer</a></h2>
+				<pre>type ChatServer struct {
+	    Port         <a href="/pkg/builtin/#string">string</a>
+	    MessageQueue map[<a href="/pkg/builtin/#string">string</a>][]<a href="/pkg/builtin/#string">string</a>
+	    Users        []<a href="/pkg/builtin/#string">string</a>
+	    ShutDown     chan <a href="/pkg/builtin/#bool">bool</a>
+	}</pre>
+				<p>
+	ChatServer defines struct for each of the ChatServer
+	</p>
+
+
+
+
+
+
+
+
+
+
+
+
+					<h3 id="StartServer">func <a href="/src/target/goofserver.go?s=4637:4667#L165">StartServer</a></h3>
+					<pre>func StartServer() *<a href="#ChatServer">ChatServer</a></pre>
+					<p>
+	StartServer creates new instance of the struct ChatServer and returns it
+	</p>
+
+
+
+
+
+
+
+					<h3 id="ChatServer.CheckMessages">func (*ChatServer) <a href="/src/target/goofserver.go?s=1870:1944#L59">CheckMessages</a></h3>
+					<pre>func (c *<a href="#ChatServer">ChatServer</a>) CheckMessages(username <a href="/pkg/builtin/#string">string</a>, reply *[]<a href="/pkg/builtin/#string">string</a>) <a href="/pkg/builtin/#error">error</a></pre>
+					<p>
+	CheckMessages does a check every second for new messages for the user
+	</p>
+
+
+
+
+
+
+					<h3 id="ChatServer.ListGoofs">func (*ChatServer) <a href="/src/target/goofserver.go?s=2092:2159#L66">ListGoofs</a></h3>
+					<pre>func (c *<a href="#ChatServer">ChatServer</a>) ListGoofs(none <a href="#Nothing">Nothing</a>, reply *[]<a href="/pkg/builtin/#string">string</a>) <a href="/pkg/builtin/#error">error</a></pre>
+					<p>
+	ListGoofs function lists all the users in the chat currently
+	</p>
+
+
+
+
+
+
+					<h3 id="ChatServer.Logout">func (*ChatServer) <a href="/src/target/goofserver.go?s=3131:3197#L109">Logout</a></h3>
+					<pre>func (c *<a href="#ChatServer">ChatServer</a>) Logout(username <a href="/pkg/builtin/#string">string</a>, reply *<a href="#Nothing">Nothing</a>) <a href="/pkg/builtin/#error">error</a></pre>
+					<p>
+	Logout function logouts a goof out
+	</p>
+
+
+
+
+
+
+					<h3 id="ChatServer.RegisterGoofs">func (*ChatServer) <a href="/src/target/goofserver.go?s=631:703#L24">RegisterGoofs</a></h3>
+					<pre>func (c *<a href="#ChatServer">ChatServer</a>) RegisterGoofs(username <a href="/pkg/builtin/#string">string</a>, reply *<a href="/pkg/builtin/#string">string</a>) <a href="/pkg/builtin/#error">error</a></pre>
+					<p>
+	RegisterGoofs function takes a username and registers it with the server
+	</p>
+
+
+
+
+
+
+					<h3 id="ChatServer.Shout">func (*ChatServer) <a href="/src/target/goofserver.go?s=2863:2924#L97">Shout</a></h3>
+					<pre>func (c *<a href="#ChatServer">ChatServer</a>) Shout(msg <a href="#Message">Message</a>, reply *<a href="#Nothing">Nothing</a>) <a href="/pkg/builtin/#error">error</a></pre>
+					<p>
+	Shout function sends a message to all users
+	</p>
+
+
+
+
+
+
+					<h3 id="ChatServer.Shutdown">func (*ChatServer) <a href="/src/target/goofserver.go?s=3831:3899#L135">Shutdown</a></h3>
+					<pre>func (c *<a href="#ChatServer">ChatServer</a>) Shutdown(nothing <a href="#Nothing">Nothing</a>, reply *<a href="#Nothing">Nothing</a>) <a href="/pkg/builtin/#error">error</a></pre>
+					<p>
+	Shutdown function shuts the server down if whether evrybody in the chatroom logs out
+	</p>
+
+
+
+
+
+
+					<h3 id="ChatServer.Whisper">func (*ChatServer) <a href="/src/target/goofserver.go?s=2485:2548#L82">Whisper</a></h3>
+					<pre>func (c *<a href="#ChatServer">ChatServer</a>) Whisper(msg <a href="#Message">Message</a>, reply *<a href="#Nothing">Nothing</a>) <a href="/pkg/builtin/#error">error</a></pre>
+					<p>
+	Whisper function sends a message to a specific user
+	</p>
+
+
+
+				<h2 id="Message">type <a href="/src/target/goofserver.go?s=300:368#L9">Message</a></h2>
+				<pre>type Message struct {
+	    User   <a href="/pkg/builtin/#string">string</a>
+	    Target <a href="/pkg/builtin/#string">string</a>
+	    Msg    <a href="/pkg/builtin/#string">string</a>
+	}</pre>
+				<p>
+	Message defines struct for every message
+	</p>
+
+
+				<h2 id="Nothing">type <a href="/src/target/goofserver.go?s=238:255#L6">Nothing</a></h2>
+				<pre>type Nothing <a href="/pkg/builtin/#bool">bool</a></pre>
+				<p>
+	Nothing defines a blank variable
+	</p>
+
+</body>
+</html>

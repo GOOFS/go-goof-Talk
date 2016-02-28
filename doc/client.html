@@ -1,0 +1,315 @@
+<html>
+<head>
+	<title>GoofClient Package Documentation -  GoofTalk by GOOFS</title>
+	<link rel="stylesheet" href="style.css" media="screen" charset="utf-8">
+
+	<script type='text/javascript'>
+	document.ANALYSIS_DATA = ;
+	document.CALLGRAPH = ;
+	</script>
+</head>
+<body>
+	<!--
+		Copyright 2009 The Go Authors. All rights reserved.
+		Use of this source code is governed by a BSD-style
+		license that can be found in the LICENSE file.
+	-->
+	<!--
+		Note: Static (i.e., not template-generated) href and id
+		attributes start with "pkg-" to make it impossible for
+		them to conflict with generated attributes (some of which
+		correspond to Go identifiers).
+	-->
+
+		<script type='text/javascript'>
+		document.ANALYSIS_DATA = ;
+		document.CALLGRAPH = ;
+		</script>
+
+
+
+			<div id="short-nav">
+				<dl>
+				<dd><code>import "goofclient"</code></dd>
+				</dl>
+				<dl>
+				<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
+				<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
+
+
+				</dl>
+			</div>
+			<!-- The package's Name is printed as title by the top-level template -->
+			<div id="pkg-overview" class="toggleVisible">
+				<div class="collapsed">
+					<h2 class="toggleButton" title="Click to show Overview section">Overview</h2>
+				</div>
+				<div class="expanded">
+					<h2 class="toggleButton" title="Click to hide Overview section">Overview</h2>
+					<p>
+	Package goofclient consists of structs and their methods which can be used to
+	connect to the host, send or receive messages through the server
+	</p>
+
+				</div>
+			</div>
+
+
+			<div id="pkg-index" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Index section">Index</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Index section">Index</h2>
+
+			<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+				<div id="manual-nav">
+				<dl>
+
+
+					<dd><a href="#pkg-variables">Variables</a></dd>
+
+
+
+					<dd><a href="#MainLoop">func MainLoop(c *ChatClient)</a></dd>
+
+
+
+					<dd><a href="#ChatClient">type ChatClient</a></dd>
+
+
+						<dd>&nbsp; &nbsp; <a href="#CreateClientFromFlags">func CreateClientFromFlags() (*ChatClient, error)</a></dd>
+
+
+
+						<dd>&nbsp; &nbsp; <a href="#ChatClient.CheckMessages">func (c *ChatClient) CheckMessages()</a></dd>
+
+
+						<dd>&nbsp; &nbsp; <a href="#ChatClient.ListGoofs">func (c *ChatClient) ListGoofs()</a></dd>
+
+
+						<dd>&nbsp; &nbsp; <a href="#ChatClient.Logout">func (c *ChatClient) Logout()</a></dd>
+
+
+						<dd>&nbsp; &nbsp; <a href="#ChatClient.RegisterGoofs">func (c *ChatClient) RegisterGoofs()</a></dd>
+
+
+						<dd>&nbsp; &nbsp; <a href="#ChatClient.Shout">func (c *ChatClient) Shout(params []string)</a></dd>
+
+
+						<dd>&nbsp; &nbsp; <a href="#ChatClient.Whisper">func (c *ChatClient) Whisper(params []string)</a></dd>
+
+
+
+					<dd><a href="#Message">type Message</a></dd>
+
+
+
+
+					<dd><a href="#Nothing">type Nothing</a></dd>
+
+
+
+
+				</dl>
+				</div><!-- #manual-nav -->
+
+
+
+
+				<h4>Package files</h4>
+				<p>
+				<span style="font-size:90%">
+
+					<a href="/src/goofclient/goofclient.go">goofclient.go</a>
+
+				</span>
+				</p>
+
+			</div><!-- .expanded -->
+			</div><!-- #pkg-index -->
+
+			<div id="pkg-callgraph" class="toggle" style="display: none">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Internal Call Graph section">Internal call graph ▹</h2>
+			</div> <!-- .expanded -->
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Internal Call Graph section">Internal call graph ▾</h2>
+				<p>
+				  In the call graph viewer below, each node
+				  is a function belonging to this package
+				  and its children are the functions it
+				  calls&mdash;perhaps dynamically.
+				</p>
+				<p>
+				  The root nodes are the entry points of the
+				  package: functions that may be called from
+				  outside the package.
+				  There may be non-exported or anonymous
+				  functions among them if they are called
+				  dynamically from another package.
+				</p>
+				<p>
+				  Click a node to visit that function's source code.
+				  From there you can visit its callers by
+				  clicking its declaring <code>func</code>
+				  token.
+				</p>
+				<p>
+				  Functions may be omitted if they were
+				  determined to be unreachable in the
+				  particular programs or tests that were
+				  analyzed.
+				</p>
+				<!-- Zero means show all package entry points. -->
+				<ul style="margin-left: 0.5in" id="callgraph-0" class="treeview"></ul>
+			</div>
+			</div> <!-- #pkg-callgraph -->
+
+
+
+				<h2 id="pkg-variables">Variables</h2>
+
+					<pre>var (
+	    <span id="DefaultPort">DefaultPort</span> = 3410
+	    <span id="DefaultHost">DefaultHost</span> = &#34;localhost&#34;
+	)</pre>
+					<p>
+	Global variables to store default port and host.
+	</p>
+
+
+
+
+
+
+				<h2 id="MainLoop">func <a href="/src/target/goofclient.go?s=4767:4795#L186">MainLoop</a></h2>
+				<pre>func MainLoop(c *<a href="#ChatClient">ChatClient</a>)</pre>
+				<p>
+	MainLoop function waits for input from stadard input i.e. keyboard and checks it against list of available functions
+	</p>
+
+
+
+
+
+
+
+
+				<h2 id="ChatClient">type <a href="/src/target/goofclient.go?s=498:580#L20">ChatClient</a></h2>
+				<pre>type ChatClient struct {
+	    Username <a href="/pkg/builtin/#string">string</a>
+	    Address  <a href="/pkg/builtin/#string">string</a>
+	    Client   *<a href="/pkg/net/rpc/">rpc</a>.<a href="/pkg/net/rpc/#Client">Client</a>
+	}</pre>
+				<p>
+	ChatClient defines struct for each of the ChatClient
+	</p>
+
+
+
+
+
+
+
+
+
+
+
+
+					<h3 id="CreateClientFromFlags">func <a href="/src/target/goofclient.go?s=3606:3655#L151">CreateClientFromFlags</a></h3>
+					<pre>func CreateClientFromFlags() (*<a href="#ChatClient">ChatClient</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+					<p>
+	CreateClientFromFlags function parses the command line arguments
+	</p>
+
+
+
+
+
+
+
+					<h3 id="ChatClient.CheckMessages">func (*ChatClient) <a href="/src/target/goofclient.go?s=1569:1605#L63">CheckMessages</a></h3>
+					<pre>func (c *<a href="#ChatClient">ChatClient</a>) CheckMessages()</pre>
+					<p>
+	CheckMessages does a check every second for new messages for the user
+	</p>
+
+
+
+
+
+
+					<h3 id="ChatClient.ListGoofs">func (*ChatClient) <a href="/src/target/goofclient.go?s=1965:1997#L80">ListGoofs</a></h3>
+					<pre>func (c *<a href="#ChatClient">ChatClient</a>) ListGoofs()</pre>
+					<p>
+	ListGoofs function lists all the users in the chat currently
+	</p>
+
+
+
+
+
+
+					<h3 id="ChatClient.Logout">func (*ChatClient) <a href="/src/target/goofclient.go?s=3294:3323#L139">Logout</a></h3>
+					<pre>func (c *<a href="#ChatClient">ChatClient</a>) Logout()</pre>
+					<p>
+	Logout function logouts a goof out
+	</p>
+
+
+
+
+
+
+					<h3 id="ChatClient.RegisterGoofs">func (*ChatClient) <a href="/src/target/goofclient.go?s=1135:1171#L46">RegisterGoofs</a></h3>
+					<pre>func (c *<a href="#ChatClient">ChatClient</a>) RegisterGoofs()</pre>
+					<p>
+	RegisterGoofs function takes a username and registers it with the server
+	</p>
+
+
+
+
+
+
+					<h3 id="ChatClient.Shout">func (*ChatClient) <a href="/src/target/goofclient.go?s=2814:2857#L117">Shout</a></h3>
+					<pre>func (c *<a href="#ChatClient">ChatClient</a>) Shout(params []<a href="/pkg/builtin/#string">string</a>)</pre>
+					<p>
+	Shout sends a message to all users
+	</p>
+
+
+
+
+
+
+					<h3 id="ChatClient.Whisper">func (*ChatClient) <a href="/src/target/goofclient.go?s=2312:2357#L96">Whisper</a></h3>
+					<pre>func (c *<a href="#ChatClient">ChatClient</a>) Whisper(params []<a href="/pkg/builtin/#string">string</a>)</pre>
+					<p>
+	Whisper function sends a message to a specific user
+	</p>
+
+
+
+
+				<h2 id="Message">type <a href="/src/target/goofclient.go?s=373:441#L13">Message</a></h2>
+				<pre>type Message struct {
+	    User   <a href="/pkg/builtin/#string">string</a>
+	    Target <a href="/pkg/builtin/#string">string</a>
+	    Msg    <a href="/pkg/builtin/#string">string</a>
+	}</pre>
+				<p>
+	Message defines struct for every message
+	</p>
+
+
+				<h2 id="Nothing">type <a href="/src/target/goofclient.go?s=311:328#L10">Nothing</a></h2>
+				<pre>type Nothing <a href="/pkg/builtin/#bool">bool</a></pre>
+				<p>
+	Nothing defines a blank variable
+	</p>
+
+
+</body>
+</html>
