@@ -65,6 +65,13 @@ func (c *ChatServer) RegisterGoofs(username string, reply *string) error {
 	return nil
 }
 
+// CheckMessages does a check every second for new messages for the user
+func (c *ChatServer) CheckMessages(username string, reply *[]string) error {
+	*reply = c.MessageQueue[username]
+	c.MessageQueue[username] = nil
+	return nil
+}
+
 //ListGoofs function lists all the users in the chat currently
 func (c *ChatServer) ListGoofs(none Nothing, reply *[]string) error {
 	*reply = append(*reply, "Current online Goofs:")
@@ -80,6 +87,22 @@ func (c *ChatServer) ListGoofs(none Nothing, reply *[]string) error {
 
 	return nil
 }
+
+// Whisper function sends a message to a specific user
+func (c *ChatServer) Whisper(msg Message, reply *Nothing) error {
+	if queue, ok := c.MessageQueue[msg.Target]; ok {
+		m := msg.User + " >>>  " + msg.Msg
+		c.MessageQueue[msg.Target] = append(queue, m)
+	} else {
+		m := msg.Target + " does not exist"
+		c.MessageQueue[msg.User] = append(queue, m)
+	}
+
+	*reply = false
+
+	return nil
+}
+
 
 //Logout function logouts a goof out
 func (c *ChatServer) Logout(username string, reply *Nothing) error {
