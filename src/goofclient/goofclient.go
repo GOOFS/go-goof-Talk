@@ -13,6 +13,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 //Nothing defines a blank variable
@@ -68,6 +69,23 @@ func (c *ChatClient) RegisterGoofs() {
 	}
 }
 
+// CheckMessages does a check every second for new messages for the user
+func (c *ChatClient) CheckMessages() {
+	var reply []string
+	c.Client = c.getClientConnection()
+	for {
+		err := c.Client.Call("ChatServer.CheckMessages", c.Username, &reply)
+		if err != nil {
+			log.Fatalln("Chat has been shutdown. Goodbye.")
+		}
+		for i := range reply {
+			log.Println(reply[i])
+		}
+
+		time.Sleep(time.Second)
+	}
+}
+
 //ListGoofs function lists all the users in the chat currently
 func (c *ChatClient) ListGoofs() {
 	var reply []string
@@ -83,6 +101,29 @@ func (c *ChatClient) ListGoofs() {
 		fmt.Println(reply[i])
 	}
 }
+
+// Whisper function sends a message to a specific user
+func (c *ChatClient) Whisper(params []string) {
+	var reply Nothing
+	c.Client = c.getClientConnection()
+	target := strings.Replace(params[0], "@", "", 1)
+	if len(params) == 2 {
+		msg := strings.Join(params[1:], " ")
+		message := Message{
+			User:   c.Username,
+			Target: target,
+			Msg:    msg,
+		}
+
+		err := c.Client.Call("ChatServer.Whisper", message, &reply)
+		if err != nil {
+			log.Printf("Error telling users something: %q", err)
+		}
+	} else {
+		log.Println("Usage of whisper: @<username> <your message>")
+	}
+}
+
 
 //Logout function logouts a goof out
 func (c *ChatClient) Logout() {
@@ -141,14 +182,16 @@ func MainLoop(c *ChatClient) {
 		}
 
 		line = strings.TrimSpace(line)
-
-		if strings.HasPrefix(line, "listGoofs") {
+		params := strings.Fields(line)
+		if strings.HasPrefix(line, "list") {
 			c.ListGoofs()
+		} else if strings.HasPrefix(line, "@") {
+			c.Whisper(params)
 		} else if strings.HasPrefix(line, "logout") {
 			c.Logout()
 		} else if strings.HasPrefix(line, "help") {
 			fmt.Println("Welcome to GOOFtalk help:")
-			fmt.Println("List of funcitons, \n1. listGoofs\n4. logout")
+			fmt.Println("List of funcitons, \n1. List all online Goofs : list\n2. Whisper: @<username> <message>\n3.Logout:  logout")
 		} else {
 			fmt.Println("Invalid function, try 'help' to list all available functions")
 		}
