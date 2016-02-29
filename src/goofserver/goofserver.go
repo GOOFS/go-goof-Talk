@@ -57,10 +57,10 @@ func (c *ChatServer) RegisterGoofs(username string, reply *string) error {
 	}
 
 	for k := range c.MessageQueue {
-		c.MessageQueue[k] = append(c.MessageQueue[k], username+" has joined.")
+		c.MessageQueue[k] = append(c.MessageQueue[k], "["+username+"] has joined.")
 	}
 
-	log.Printf("%s has joined the chat.\n", username)
+	log.Printf("[%s] has joined the chat.\n", username)
 
 	return nil
 }
@@ -90,19 +90,24 @@ func (c *ChatServer) ListGoofs(none Nothing, reply *[]string) error {
 
 // Whisper function sends a message to a specific user
 func (c *ChatServer) Whisper(msg Message, reply *Nothing) error {
+	if len(msg.Msg) > 160 {
+		err := errors.New("Maximum length of the message should be less than 160")
+		return err
+	}
 	if queue, ok := c.MessageQueue[msg.Target]; ok {
-		m := msg.User + " >>>  " + msg.Msg
+		m := "[" + msg.User + "] :  " + msg.Msg
 		c.MessageQueue[msg.Target] = append(queue, m)
 	} else {
-		m := msg.Target + " does not exist"
-		c.MessageQueue[msg.User] = append(queue, m)
+		//m :=
+		//c.MessageQueue[msg.User] = append(queue, m)
+		err := errors.New("[" + msg.Target + "] does not exist. use 'list' command to list online Goofs.")
+		return err
 	}
 
 	*reply = false
 
 	return nil
 }
-
 
 //Logout function logouts a goof out
 func (c *ChatServer) Logout(username string, reply *Nothing) error {
@@ -114,9 +119,9 @@ func (c *ChatServer) Logout(username string, reply *Nothing) error {
 			c.Users = append(c.Users[:i], c.Users[i+1:]...) //deletes the user from the array(slice)
 
 			for k := range c.MessageQueue {
-				c.MessageQueue[k] = append(c.MessageQueue[k], username+" has left the chat.")
+				c.MessageQueue[k] = append(c.MessageQueue[k], "["+username+"] has left the chat.")
 			}
-			log.Printf("%s has left the chat", username)
+			log.Printf("[%s] has left the chat", username)
 			break
 		}
 	}

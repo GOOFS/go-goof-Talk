@@ -21,7 +21,7 @@ func main() {
 	client.RegisterGoofs()
 	go client.CheckMessages()
 
-	//Capture ctrl+c and logout is pressed
+	//Capture ctrl+c and logout if pressed
 	sigc := make(chan os.Signal, 1)
 	signal.Notify(sigc, os.Interrupt)
 	go func() {

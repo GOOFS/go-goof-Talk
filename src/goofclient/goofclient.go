@@ -107,7 +107,7 @@ func (c *ChatClient) Whisper(params []string) {
 	var reply Nothing
 	c.Client = c.getClientConnection()
 	target := strings.Replace(params[0], "@", "", 1)
-	if len(params) == 2 {
+	if len(params) >= 2 {
 		msg := strings.Join(params[1:], " ")
 		message := Message{
 			User:   c.Username,
@@ -117,13 +117,12 @@ func (c *ChatClient) Whisper(params []string) {
 
 		err := c.Client.Call("ChatServer.Whisper", message, &reply)
 		if err != nil {
-			log.Printf("Error telling users something: %q", err)
+			log.Printf("Error: %q", err)
 		}
 	} else {
 		log.Println("Usage of whisper: @<username> <your message>")
 	}
 }
-
 
 //Logout function logouts a goof out
 func (c *ChatClient) Logout() {
