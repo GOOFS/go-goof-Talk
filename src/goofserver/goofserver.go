@@ -98,8 +98,6 @@ func (c *ChatServer) Whisper(msg Message, reply *Nothing) error {
 		m := "[" + msg.User + "] :  " + msg.Msg
 		c.MessageQueue[msg.Target] = append(queue, m)
 	} else {
-		//m :=
-		//c.MessageQueue[msg.User] = append(queue, m)
 		err := errors.New("[" + msg.Target + "] does not exist. use 'list' command to list online Goofs.")
 		return err
 	}
