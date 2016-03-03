@@ -1,12 +1,20 @@
+// Unit tests for the package goofserver which
+// mocks certain conditions and tests the functions in goofserver package
 package goofserver
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
-// mocks the logout function with sample data
+// Define a port number for server
 var c = ChatServer{Port: "3410"}
+
+// A dummy empty variable
 var none Nothing
 
-//unit test case of RegisterGoofs with valid data
+//TestRegisterGoofs_1 test mocks registration of new user with valid name
+// Expected result: PASS
 func TestRegisterGoofs_1(t *testing.T) {
 	var reply string
 	var user = "goof"
@@ -18,7 +26,8 @@ func TestRegisterGoofs_1(t *testing.T) {
 	}
 }
 
-//unit test case of RegisterGoofs with empty string
+//TestRegisterGoofs_1 test mocks registration of new user with empty string
+//Expected result: FAIL
 func TestRegisterGoofs_2(t *testing.T) {
 	var reply string
 	var user = ""
@@ -30,7 +39,8 @@ func TestRegisterGoofs_2(t *testing.T) {
 	}
 }
 
-//unit test case of RegisterGoofs with duplicate data
+//TestRegisterGoofs_1 test mocks registration of new user with existing username
+//Expected result: FAIL
 func TestRegisterGoofs_3(t *testing.T) {
 	var reply string
 	c.Users = []string{"testman", "goofdemo"}
@@ -43,7 +53,8 @@ func TestRegisterGoofs_3(t *testing.T) {
 	}
 }
 
-//unit test case of ListGoofs with valid data
+//TestListGoofs_1 test mocks listing of online users
+//Expected result: PASS
 func TestListGoofs_1(t *testing.T) {
 	var reply []string
 	c.Users = []string{"testman", "goofdemo"}
@@ -57,7 +68,8 @@ func TestListGoofs_1(t *testing.T) {
 	}
 }
 
-//unit test case of ListGoofs with invalid data
+//TestListGoofs_1 test mocks listing of online users when no users present
+//Expected result: FAIL
 func TestListGoofs_2(t *testing.T) {
 	var reply []string
 	c.Users = []string{}
@@ -71,7 +83,8 @@ func TestListGoofs_2(t *testing.T) {
 	}
 }
 
-//unit test case of Logout with valid data
+//TestLogout_1 test mocks a user logging out
+//Expected result: PASS
 func TestLogout_1(t *testing.T) {
 	c.Users = []string{"testman", "goofdemo"}
 	var demouser = "goofdemo"
@@ -83,10 +96,11 @@ func TestLogout_1(t *testing.T) {
 	}
 }
 
-//unit test case of Logout with invalid data
+//TestLogout_1 test mocks a user logging out when given user is not online
+//Expected result: FAIL
 func TestLogout_2(t *testing.T) {
 	c.Users = []string{"testman", "goofdemo"}
-	var demouser = "Joseph"
+	var demouser = "nouser"
 	err := c.Logout(demouser, &none)
 	if err != nil {
 		t.Error("Could not log out correctly. ")
@@ -95,14 +109,57 @@ func TestLogout_2(t *testing.T) {
 	}
 }
 
+//TestWhisper_1 test tries to send a message to online user
+//Expected result: PASS
 func TestWhisper_1(t *testing.T) {
 	c.Users = []string{"goof1", "goof2", "goof3", "goof4"}
 	var demouser = "goof4"
-	var target = "goof5"
+	var target = "goof3"
 	message := Message{
 		User:   demouser,
-		Target: "goof1",
+		Target: target,
 		Msg:    "hello this is a dummy communication message",
+	}
+	demomsg := []string{"hello"}
+	c.MessageQueue = make(map[string][]string, len(demomsg))
+	c.MessageQueue[target] = demomsg
+	err := c.Whisper(message, &none)
+	if err != nil {
+		t.Error("Unable to send the message to target", err)
+	} else {
+		t.Log("Message sending test passed")
+	}
+}
+
+//TestWhisper_2 test tries to send a message to an non existant user
+//Expected result: FAIL
+func TestWhisper_2(t *testing.T) {
+	c.Users = []string{"goof1", "goof2", "goof3", "goof4"}
+	var demouser = "goof4"
+	var target = "goof6"
+	message := Message{
+		User:   demouser,
+		Target: target,
+		Msg:    "hello this is a dummy communication message",
+	}
+	err := c.Whisper(message, &none)
+	if err != nil {
+		t.Error("Unable to send the message to target", err)
+	} else {
+		t.Log("Message sending test passed")
+	}
+}
+
+//TestWhisper_3 test tries to send a message with more than 160 characters
+//Expected result: FAIL
+func TestWhisper_3(t *testing.T) {
+	c.Users = []string{"goof1", "goof2", "goof3", "goof4"}
+	var demouser = "goof4"
+	var target = "goof2"
+	message := Message{
+		User:   demouser,
+		Target: target,
+		Msg:    "This is a message to test whipser function. This suppose to have more than 160 characters.This is a message to test whipser function. And this is more than one sixty characters",
 	}
 	demomsg := []string{"hello"}
 	c.MessageQueue = make(map[string][]string, len(demomsg))

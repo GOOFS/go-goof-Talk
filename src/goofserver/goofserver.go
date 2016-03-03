@@ -76,7 +76,7 @@ func (c *ChatServer) CheckMessages(username string, reply *[]string) error {
 func (c *ChatServer) ListGoofs(none Nothing, reply *[]string) error {
 	*reply = append(*reply, "Current online Goofs:")
 	if len(c.Users) == 0 {
-		err := errors.New("No current users")
+		err := errors.New("No online users")
 		return err
 	}
 	for i := range c.Users {
