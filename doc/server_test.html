@@ -1,0 +1,266 @@
+<html>
+<head>
+	<title>GoofServer Tests Documentation -  GoofTalk by GOOFS</title>
+	<link rel="stylesheet" href="style.css" media="screen" charset="utf-8">
+
+	<script type='text/javascript'>
+	document.ANALYSIS_DATA = ;
+	document.CALLGRAPH = ;
+	</script>
+</head>
+<body>
+	<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+Note: Static (i.e., not template-generated) href and id
+attributes start with "pkg-" to make it impossible for
+them to conflict with generated attributes (some of which
+correspond to Go identifiers).
+-->
+
+
+
+
+
+
+<!-- The package's Name is printed as title by the top-level template -->
+<div id="pkg-overview" class="toggleVisible">
+	<div class="collapsed">
+		<h2 class="toggleButton" title="Click to show Overview section">Overview </h2>
+	</div>
+	<div class="expanded">
+		<h2 class="toggleButton" title="Click to hide Overview section">Overview </h2>
+		<p>
+			Unit tests for the package goofserver which
+			mocks certain conditions and tests the functions in goofserver package
+		</p>
+
+	</div>
+</div>
+
+
+<div id="pkg-index" class="toggleVisible">
+	<div class="collapsed">
+		<h2 class="toggleButton" title="Click to show Index section">Index </h2>
+	</div>
+	<div class="expanded">
+		<h2 class="toggleButton" title="Click to hide Index section">Index</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+		<div id="manual-nav">
+			<dl>
+
+
+
+
+				<dd><a href="#TestListGoofs_1">func TestListGoofs_1(t *testing.T)</a></dd>
+
+
+				<dd><a href="#TestListGoofs_2">func TestListGoofs_2(t *testing.T)</a></dd>
+
+
+				<dd><a href="#TestLogout_1">func TestLogout_1(t *testing.T)</a></dd>
+
+
+				<dd><a href="#TestLogout_2">func TestLogout_2(t *testing.T)</a></dd>
+
+
+				<dd><a href="#TestRegisterGoofs_1">func TestRegisterGoofs_1(t *testing.T)</a></dd>
+
+
+				<dd><a href="#TestRegisterGoofs_2">func TestRegisterGoofs_2(t *testing.T)</a></dd>
+
+
+				<dd><a href="#TestRegisterGoofs_3">func TestRegisterGoofs_3(t *testing.T)</a></dd>
+
+
+				<dd><a href="#TestWhisper_1">func TestWhisper_1(t *testing.T)</a></dd>
+
+
+				<dd><a href="#TestWhisper_2">func TestWhisper_2(t *testing.T)</a></dd>
+
+
+				<dd><a href="#TestWhisper_3">func TestWhisper_3(t *testing.T)</a></dd>
+
+
+
+			</dl>
+		</div><!-- #manual-nav -->
+
+
+
+
+	</div><!-- .expanded -->
+</div><!-- #pkg-index -->
+
+<div id="pkg-callgraph" class="toggle" style="display: none">
+	<div class="collapsed">
+		<h2 class="toggleButton" title="Click to show Internal Call Graph section">Internal call graph ▹</h2>
+	</div> <!-- .expanded -->
+	<div class="expanded">
+		<h2 class="toggleButton" title="Click to hide Internal Call Graph section">Internal call graph ▾</h2>
+		<p>
+			In the call graph viewer below, each node
+			is a function belonging to this package
+			and its children are the functions it
+			calls&mdash;perhaps dynamically.
+		</p>
+		<p>
+			The root nodes are the entry points of the
+			package: functions that may be called from
+			outside the package.
+			There may be non-exported or anonymous
+			functions among them if they are called
+			dynamically from another package.
+		</p>
+		<p>
+			Click a node to visit that function's source code.
+			From there you can visit its callers by
+			clicking its declaring <code>func</code>
+			token.
+		</p>
+		<p>
+			Functions may be omitted if they were
+			determined to be unreachable in the
+			particular programs or tests that were
+			analyzed.
+		</p>
+		<!-- Zero means show all package entry points. -->
+		<ul style="margin-left: 0.5in" id="callgraph-0" class="treeview"></ul>
+	</div>
+</div> <!-- #pkg-callgraph -->
+
+
+
+
+
+
+<h2 id="TestListGoofs_1">func <a href="/src/target/goofservertest.go?s=1377:1411#L48">TestListGoofs_1</a></h2>
+<pre>func TestListGoofs_1(t *<a href="/pkg/testing/">testing</a>.<a href="/pkg/testing/#T">T</a>)</pre>
+<p>
+	TestListGoofs_1 test mocks listing of online users
+	<br/>Expected result: PASS
+</p>
+
+
+
+
+
+
+
+<h2 id="TestListGoofs_2">func <a href="/src/target/goofservertest.go?s=1736:1770#L63">TestListGoofs_2</a></h2>
+<pre>func TestListGoofs_2(t *<a href="/pkg/testing/">testing</a>.<a href="/pkg/testing/#T">T</a>)</pre>
+<p>
+	TestListGoofs_1 test mocks listing of online users when no users present
+	<br/>Expected result: FAIL
+</p>
+
+
+
+
+
+
+
+<h2 id="TestLogout_1">func <a href="/src/target/goofservertest.go?s=2044:2075#L78">TestLogout_1</a></h2>
+<pre>func TestLogout_1(t *<a href="/pkg/testing/">testing</a>.<a href="/pkg/testing/#T">T</a>)</pre>
+<p>
+	TestLogout_1 test mocks a user logging out
+	<br/>Expected result: PASS
+</p>
+
+
+
+
+
+
+
+<h2 id="TestLogout_2">func <a href="/src/target/goofservertest.go?s=2387:2418#L91">TestLogout_2</a></h2>
+<pre>func TestLogout_2(t *<a href="/pkg/testing/">testing</a>.<a href="/pkg/testing/#T">T</a>)</pre>
+<p>
+	TestLogout_1 test mocks a user logging out when given user is not online
+	<br/>Expected result: FAIL
+</p>
+
+
+
+
+
+
+
+<h2 id="TestRegisterGoofs_1">func <a href="/src/target/goofservertest.go?s=387:425#L8">TestRegisterGoofs_1</a></h2>
+<pre>func TestRegisterGoofs_1(t *<a href="/pkg/testing/">testing</a>.<a href="/pkg/testing/#T">T</a>)</pre>
+<p>
+	TestRegisterGoofs_1 test mocks registration of new user with valid name
+	<br/>Expected result: PASS
+</p>
+
+
+
+
+
+
+
+<h2 id="TestRegisterGoofs_2">func <a href="/src/target/goofservertest.go?s=709:747#L21">TestRegisterGoofs_2</a></h2>
+<pre>func TestRegisterGoofs_2(t *<a href="/pkg/testing/">testing</a>.<a href="/pkg/testing/#T">T</a>)</pre>
+<p>
+	TestRegisterGoofs_1 test mocks registration of new user with empty string
+	<br/>Expected result: FAIL
+</p>
+
+
+
+
+
+
+
+<h2 id="TestRegisterGoofs_3">func <a href="/src/target/goofservertest.go?s=1032:1070#L34">TestRegisterGoofs_3</a></h2>
+<pre>func TestRegisterGoofs_3(t *<a href="/pkg/testing/">testing</a>.<a href="/pkg/testing/#T">T</a>)</pre>
+<p>
+	TestRegisterGoofs_1 test mocks registration of new user with existing username
+	<br/>Expected result: FAIL
+</p>
+
+
+
+
+
+
+
+<h2 id="TestWhisper_1">func <a href="/src/target/goofservertest.go?s=2713:2745#L104">TestWhisper_1</a></h2>
+<pre>func TestWhisper_1(t *<a href="/pkg/testing/">testing</a>.<a href="/pkg/testing/#T">T</a>)</pre>
+<p>
+	TestWhisper_1 test tries to send a message to online user
+	<br/>Expected result: PASS
+</p>
+
+
+
+
+
+
+
+<h2 id="TestWhisper_2">func <a href="/src/target/goofservertest.go?s=3345:3377#L126">TestWhisper_2</a></h2>
+<pre>func TestWhisper_2(t *<a href="/pkg/testing/">testing</a>.<a href="/pkg/testing/#T">T</a>)</pre>
+<p>
+	TestWhisper_2 test tries to send a message to an non existant user
+	<br/>Expected result: FAIL
+</p>
+
+
+
+
+
+
+
+<h2 id="TestWhisper_3">func <a href="/src/target/goofservertest.go?s=3861:3893#L145">TestWhisper_3</a></h2>
+<pre>func TestWhisper_3(t *<a href="/pkg/testing/">testing</a>.<a href="/pkg/testing/#T">T</a>)</pre>
+<p>
+	TestWhisper_3 test tries to send a message with more than 160 characters
+	<br/>Expected result: FAIL
+</p>
+
+</body>
+</html>
