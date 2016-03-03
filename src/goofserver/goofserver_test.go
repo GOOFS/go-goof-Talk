@@ -1,9 +1,6 @@
 package goofserver
 
-import (
-	"fmt"
-	"testing"
-)
+import "testing"
 
 // mocks the logout function with sample data
 var c = ChatServer{Port: "3410"}
@@ -101,11 +98,15 @@ func TestLogout_2(t *testing.T) {
 func TestWhisper_1(t *testing.T) {
 	c.Users = []string{"goof1", "goof2", "goof3", "goof4"}
 	var demouser = "goof4"
+	var target = "goof5"
 	message := Message{
 		User:   demouser,
 		Target: "goof1",
 		Msg:    "hello this is a dummy communication message",
 	}
+	demomsg := []string{"hello"}
+	c.MessageQueue = make(map[string][]string, len(demomsg))
+	c.MessageQueue[target] = demomsg
 	err := c.Whisper(message, &none)
 	if err != nil {
 		t.Error("Unable to send the message to target", err)
