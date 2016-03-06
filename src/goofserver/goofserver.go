@@ -107,6 +107,18 @@ func (c *ChatServer) Whisper(msg Message, reply *Nothing) error {
 	return nil
 }
 
+// Shout function sends a message to all users
+func (c *ChatServer) Shout(msg Message, reply *Nothing) error {
+	for k := range c.MessageQueue {
+		if k != msg.User {
+			c.MessageQueue[k] = append(c.MessageQueue[k], "["+msg.User+"] shouts "+msg.Msg)
+		}
+	}
+	*reply = true
+
+	return nil
+}
+
 //Logout function logouts a goof out
 func (c *ChatServer) Logout(username string, reply *Nothing) error {
 	var none Nothing

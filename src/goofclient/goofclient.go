@@ -39,8 +39,8 @@ var (
 	DefaultHost = "localhost"
 )
 
-// getClientConnection function dials into given host and returns the client variable if success, error otherwise
-func (c *ChatClient) getClientConnection() *rpc.Client {
+// GetClientConnection function dials into given host and returns the client variable if success, error otherwise
+func (c *ChatClient) GetClientConnection() *rpc.Client {
 	var err error
 
 	if c.Client == nil {
@@ -55,7 +55,7 @@ func (c *ChatClient) getClientConnection() *rpc.Client {
 // RegisterGoofs function takes a username and registers it with the server
 func (c *ChatClient) RegisterGoofs() {
 	var reply string
-	c.Client = c.getClientConnection()
+	c.Client = c.GetClientConnection()
 
 	err := c.Client.Call("ChatServer.RegisterGoofs", c.Username, &reply)
 
@@ -72,7 +72,7 @@ func (c *ChatClient) RegisterGoofs() {
 // CheckMessages does a check every second for new messages for the user
 func (c *ChatClient) CheckMessages() {
 	var reply []string
-	c.Client = c.getClientConnection()
+	c.Client = c.GetClientConnection()
 	for {
 		err := c.Client.Call("ChatServer.CheckMessages", c.Username, &reply)
 		if err != nil {
@@ -90,7 +90,7 @@ func (c *ChatClient) CheckMessages() {
 func (c *ChatClient) ListGoofs() {
 	var reply []string
 	var none Nothing
-	c.Client = c.getClientConnection()
+	c.Client = c.GetClientConnection()
 
 	err := c.Client.Call("ChatServer.ListGoofs", none, &reply)
 	if err != nil {
@@ -105,7 +105,7 @@ func (c *ChatClient) ListGoofs() {
 // Whisper function sends a message to a specific user
 func (c *ChatClient) Whisper(params []string) {
 	var reply Nothing
-	c.Client = c.getClientConnection()
+	c.Client = c.GetClientConnection()
 	target := strings.Replace(params[0], "@", "", 1)
 	if len(params) >= 2 {
 		msg := strings.Join(params[1:], " ")
@@ -121,6 +121,28 @@ func (c *ChatClient) Whisper(params []string) {
 		}
 	} else {
 		log.Println("Usage of whisper: @<username> <your message>")
+	}
+}
+
+// Shout sends a message to all users
+func (c *ChatClient) Shout(params []string) {
+	var reply Nothing
+	c.Client = c.GetClientConnection()
+
+	if len(params) > 1 {
+		msg := strings.Join(params[1:], " ")
+		message := Message{
+			User:   c.Username,
+			Target: params[1],
+			Msg:    msg,
+		}
+
+		err := c.Client.Call("ChatServer.Shout", message, &reply)
+		if err != nil {
+			log.Printf("Error saying something: %q", err)
+		}
+	} else {
+		log.Println("Usage of shout: shout <msg>")
 	}
 }
 
@@ -186,6 +208,8 @@ func MainLoop(c *ChatClient) {
 			c.ListGoofs()
 		} else if strings.HasPrefix(line, "@") {
 			c.Whisper(params)
+		} else if strings.HasPrefix(line, "shout") {
+			c.Shout(params)
 		} else if strings.HasPrefix(line, "logout") {
 			c.Logout()
 		} else if strings.HasPrefix(line, "help") {
