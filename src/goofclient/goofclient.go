@@ -11,6 +11,8 @@ import (
 	"net"
 	"net/rpc"
 	"os"
+	"os/exec"
+	"runtime"
 	"strconv"
 	"strings"
 	"time"
@@ -212,9 +214,19 @@ func MainLoop(c *ChatClient) {
 			c.Shout(params)
 		} else if strings.HasPrefix(line, "logout") {
 			c.Logout()
+		} else if strings.HasPrefix(line, "clear") {
+			if runtime.GOOS == "windows" {
+				cmd := exec.Command("cmd", "/c", "cls")
+				cmd.Stdout = os.Stdout
+				cmd.Run()
+			} else if runtime.GOOS == "linux" {
+				cmd := exec.Command("clear")
+				cmd.Stdout = os.Stdout
+				cmd.Run()
+			}
 		} else if strings.HasPrefix(line, "help") {
 			fmt.Println("Welcome to GOOFtalk help:")
-			fmt.Println("List of funcitons, \n1. List all online Goofs : list\n2. Whisper: @<username> <message>\n3.Logout:  logout")
+			fmt.Println("List of funcitons, \n1. List all online Goofs : list\n2. Send Personal Message: @<username> <message>\n3. Broadcast Message: shout <your message>\n4. Clear the chatscreen: clear\n5. Logout:  logout")
 		} else {
 			fmt.Println("Invalid function, try 'help' to list all available functions")
 		}
